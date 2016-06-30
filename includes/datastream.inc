@@ -51,18 +51,9 @@ function islandora_view_datastream(AbstractDatastream $datastream, $download = F
     header('Content-length: ' . $datastream->size);
   }
   if ($download) {
-    // Browsers will not append all extensions.
-    $extension = '.' . islandora_get_extension_for_mimetype($datastream->mimetype);
-    // Prevent adding on a duplicate extension.
-    $label = $datastream->label;
-    $extension_length = strlen($extension);
-    $duplicate_extension_position = strlen($label) > $extension_length ?
-      strripos($label, $extension, -$extension_length) :
-      FALSE;
-    $filename = $label;
-    if ($duplicate_extension_position === FALSE) {
-      $filename .= $extension;
-    }
+    $token_pattern = variable_get('islandora_ds_download_filename_pattern', '[dsfilename:parentlabel]_[dsfilename:label].[dsfilename:extension]');
+    $filename = token_replace($token_pattern, array('pid' => $datastream->parent->id,
+      'dsid' => $datastream->id));
     header("Content-Disposition: attachment; filename=\"$filename\"");
   }
 
