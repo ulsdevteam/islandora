@@ -52,8 +52,10 @@ function islandora_view_datastream(AbstractDatastream $datastream, $download = F
   }
   if ($download) {
     $token_pattern = variable_get('islandora_ds_download_filename_pattern', '[dsfilename:parentlabel]_[dsfilename:label].[dsfilename:extension]');
-    $filename = token_replace($token_pattern, array('pid' => $datastream->parent->id,
-      'dsid' => $datastream->id));
+    $filename = token_replace($token_pattern, array(
+      'pid' => $datastream->parent->id,
+      'dsid' => $datastream->id)
+    );
     header("Content-Disposition: attachment; filename=\"$filename\"");
   }
 

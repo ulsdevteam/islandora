@@ -160,10 +160,7 @@ function islandora_repository_admin(array $form, array &$form_state) {
             '#token_types' => array('dsfilename'),
           ),
         ),
-
       ),
-
-
     ),
   );
   return system_settings_form($form);

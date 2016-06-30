@@ -2173,35 +2173,35 @@ function islandora_islandora_get_breadcrumb_query_predicates(AbstractObject $obj
 function islandora_token_info() {
   $info['types']['dsfilename'] = array(
     'name' => 'Datastream tokens',
-    'description' => t('Tokens for islandora relating to datastreams objects.'),
+    'description' => t("Tokens for islandora relating to datastreams objects."),
   );
   $info['tokens']['dsfilename']['fileextension'] = array(
-    'name' => t('Extension from Datastream\'s Mimetype'),
-    'description' => t('File extension derived from mimetype.'),
+    'name' => t("Extension from Datastream's Mimetype"),
+    'description' => t("File extension derived from mimetype."),
   );
   $info['tokens']['dsfilename']['id'] = array(
-    'name' => t('Datastream\'s ID'),
+    'name' => t("Datastream's ID"),
     'description' => t('Datastream ID.'),
   );
   $info['tokens']['dsfilename']['label'] = array(
-    'name' => t('Datastream\'s label'),
-    'description' => t('Datastream label.'),
+    'name' => t("Datastream's label"),
+    'description' => t("Datastream label."),
   );
   $info['tokens']['dsfilename']['parentpid'] = array(
-    'name' => t('Parent Object\'s PID'),
-    'description' => t('Full PID of parent object in Fedora repository.'),
+    'name' => t("Parent Object's PID"),
+    'description' => t("Full PID of parent object in Fedora repository."),
   );
   $info['tokens']['dsfilename']['parentlabel'] = array(
-    'name' => t('Parent Object\'s label'),
-    'description' => t('Parent object label.'),
+    'name' => t("Parent Object's label"),
+    'description' => t("Parent object label."),
   );
   $info['tokens']['dsfilename']['parentshortpid'] = array(
-    'name' => t('Parent Object\'s Short PID'),
-    'description' => t('Parent object PID without namespace.'),
+    'name' => t("Parent Object's Short PID"),
+    'description' => t("Parent object PID without namespace."),
   );
   $info['tokens']['dsfilename']['parentnamespace'] = array(
-    'name' => t('Parent Object\'s Namespace'),
-    'description' => t('Parent object namespace.'),
+    'name' => t("Parent Object's Namespace"),
+    'description' => t("Parent object namespace."),
   );
   return $info;
 }
