@@ -59,9 +59,15 @@ function islandora_view_datastream(AbstractDatastream $datastream, $download = F
     $duplicate_extension_position = strlen($label) > $extension_length ?
       strripos($label, $extension, -$extension_length) :
       FALSE;
-    $filename = $label;
-    if ($duplicate_extension_position === FALSE) {
-      $filename .= $extension;
+    $call = module_invoke_all('create_datastream_filename', $datastream);
+    if (count($call) > 0) {
+      $filename = $call[0];
+    }
+    else {
+      $filename = $label;
+      if ($duplicate_extension_position === FALSE) {
+        $filename .= $extension;
+      }
     }
     header("Content-Disposition: attachment; filename=\"$filename\"");
   }
