@@ -34,6 +34,9 @@ define('ISLANDORA_AUTHTOKEN_TOKEN_TIMEOUT', 300);
  *   The generated authentication token.
  */
 function islandora_get_object_token($pid, $dsid, $uses = 1) {
+  // For our purposes, we do not want a unique token for these.
+  return FALSE;
+
   global $user;
   $time = time();
   $token = bin2hex(drupal_random_bytes(32));
@@ -69,6 +72,9 @@ function islandora_get_object_token($pid, $dsid, $uses = 1) {
  *   FALSE otherwise
  */
 function islandora_validate_object_token($pid, $dsid, $token) {
+  // For our purposes, we are not using a token, so return TRUE.
+  return TRUE;
+
   static $accounts = array();
 
   if (!empty($accounts[$pid][$dsid][$token])) {
