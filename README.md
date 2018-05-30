@@ -34,9 +34,8 @@ This is one Drupal module in a suite of modules (and stack of related software) 
 Before installing Islandora, the XACML policies located [here](https://github.com/Islandora/islandora-xacml-policies) should be copied into the Fedora global XACML policies folder. This will allow "authenticated users" in Drupal to access Fedora API-M functions (create, edit, and delete objects in Fedora).
 
 Notes:
-* The `permit-upload-to-anonymous-user.xml` and `permit-apim-to-anonymous-user.xml` policies allow anonymous (unauthenticated)
-users to create objects and datastreams. They do not need to be present if this is not required.
-* The policy `deny-purge-datastream-if-active-or-inactive.xml` must be deleted to allow users to purge (permanently remove) datastream versions.
+* Delete the `permit-upload-to-anonymous-user.xml` and `permit-apim-to-anonymous-user.xml` policies unless you want to allow anonymous (unauthenticated) users to create Islandora objects (not recommended).
+* Delete the `deny-purge-datastream-if-active-or-inactive.xml` to allow users to purge (permanently remove) datastream versions.
 
 More detailed information can be found in the 'Set XACML Policies' in the [Installing Fedora](https://wiki.duraspace.org/display/ISLANDORA/milestone+1+-+Installing+Fedora) chapter of the documentation.
 
