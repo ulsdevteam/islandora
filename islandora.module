@@ -2166,3 +2166,82 @@ function islandora_islandora_get_breadcrumb_query_predicates(AbstractObject $obj
     'fedora-rels-ext:isMemberOf',
   );
 }
+
+/**
+ * Implements hook_token_info().
+ */
+function islandora_token_info() {
+  $info['types']['dsfilename'] = array(
+    'name' => 'Datastream tokens',
+    'description' => t("Tokens for islandora relating to datastreams objects."),
+  );
+  $info['tokens']['dsfilename']['fileextension'] = array(
+    'name' => t("Extension from Datastream's Mimetype"),
+    'description' => t("File extension derived from mimetype."),
+  );
+  $info['tokens']['dsfilename']['id'] = array(
+    'name' => t("Datastream's ID"),
+    'description' => t('Datastream ID.'),
+  );
+  $info['tokens']['dsfilename']['label'] = array(
+    'name' => t("Datastream's label"),
+    'description' => t("Datastream label."),
+  );
+  $info['tokens']['dsfilename']['parentpid'] = array(
+    'name' => t("Parent Object's PID"),
+    'description' => t("Full PID of parent object in Fedora repository."),
+  );
+  $info['tokens']['dsfilename']['parentlabel'] = array(
+    'name' => t("Parent Object's label"),
+    'description' => t("Parent object label."),
+  );
+  $info['tokens']['dsfilename']['parentshortpid'] = array(
+    'name' => t("Parent Object's Short PID"),
+    'description' => t("Parent object PID without namespace."),
+  );
+  $info['tokens']['dsfilename']['parentnamespace'] = array(
+    'name' => t("Parent Object's Namespace"),
+    'description' => t("Parent object namespace."),
+  );
+  return $info;
+}
+
+/**
+ * Implements hook_tokens().
+ */
+function islandora_tokens($type, $tokens, array $data = array(), array $options = array()) {
+  if ($type == 'dsfilename' & !empty($data['pid'])) {
+    $object = islandora_object_load($data['pid']);
+    $datastream = $object[$data['dsid']];
+    $replacements = array();
+    foreach ($tokens as $name => $original) {
+      if ($name == 'fileextension') {
+        $replacements[$original] = islandora_get_extension_for_mimetype($datastream->mimetype);
+      }
+      if ($datastream) {
+        if ($name == 'id') {
+          $replacements[$original] = $datastream->id;
+        }
+        if ($name == 'label') {
+          $replacements[$original] = $datastream->label;
+        }
+        if ($name == 'parentpid') {
+          $replacements[$original] = $datastream->parent->id;
+        }
+        if ($name == 'parentshortpid') {
+          $temp = explode(':', $datastream->parent->id, 2);
+          $replacements[$original] = $temp[1];
+        }
+        if ($name == 'parentnamespace') {
+          $temp = explode(':', $datastream->parent->id, 2);
+          $replacements[$original] = $temp[0];
+        }
+        if ($name == 'parentlabel') {
+          $replacements[$original] = $datastream->parent->label;
+        }
+      }
+    }
+    return $replacements;
+  }
+  return array();
+}

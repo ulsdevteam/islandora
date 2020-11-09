@@ -141,6 +141,26 @@ function islandora_repository_admin(array $form, array &$form_state) {
           '#default_value' => variable_get('islandora_ds_replace_exclude_enforced', 'RELS-EXT,RELS-INT'),
         ),
       ),
+      'islandora_ds_download' => array(
+        '#type' => 'fieldset',
+        '#title' => t('Datastream Configuration'),
+        'islandora_ds_download_filename_pattern' => array(
+          '#type' => 'textfield',
+          '#title' => t('Datastream download filename pattern'),
+          '#description' => t('Control the filenames assigned to datastream downloads.  Filename naming pattern should end with the file extension or [dsfilename:extension].'),
+          '#default_value' => variable_get('islandora_ds_download_filename_pattern', '[dsfilename:parentlabel]_[dsfilename:label].[dsfilename:extension]'),
+        ),
+        'token_help' => array(
+          '#title' => t('Replacement patterns'),
+          '#type' => 'fieldset',
+          '#collapsible' => FALSE,
+          '#collapsed' => FALSE,
+          'help' => array(
+            '#theme' => 'token_tree',
+            '#token_types' => array('dsfilename'),
+          ),
+        ),
+      ),
     ),
   );
   return system_settings_form($form);
